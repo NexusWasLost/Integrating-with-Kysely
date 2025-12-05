@@ -2,7 +2,7 @@ import { db } from "./dbConfig.js";
 
 //Custom Query
 async function customQuery() {
-  const gameShop = await db
+  const data = await db
   .selectFrom("orders")
   .select("customers.name")
   .select(db.fn.count("orders.order_id").as("total_orders_placed"))
@@ -10,17 +10,17 @@ async function customQuery() {
   .groupBy("customers.name")
   .execute();
 
-    console.log(gameShop);
+  console.log(data);
 }
 
 //Read everything from a table - Read
 async function getEverything(table){
-    const gameShop = await db
+    const data = await db
     .selectFrom(table)
     .selectAll()
     .execute();
 
-    console.log(typeof gameShop);
+    console.log(data);
 }
 
 //Insert into table - Create
@@ -47,6 +47,8 @@ async function updateRecord(table){
     })
     .where("id", "=", 8)
     .execute();
+
+    console.log(updateRes);
 }
 
 //Delete from table - Delete
